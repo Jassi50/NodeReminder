@@ -19,9 +19,16 @@ const getUserById = (id) => {
 
 function isUserValid(user, password) {
   return user.password === password;
-}
+};
+
+function getUserByGitHubIdOrCreate(accessToken, refreshToken, profile, cb) {
+  let user = userController.getUserByGitHubIdOrCreate(profile);
+  return cb(null, user);
+};
+
 
 module.exports = {
   getUserByEmailIdAndPassword,
   getUserById,
+  getUserByGitHubIdOrCreate,
 };

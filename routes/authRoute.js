@@ -5,6 +5,7 @@ const { forwardAuthenticated } = require("../middleware/checkAuth");
 const router = express.Router();
 
 router.get("/login", forwardAuthenticated, (req, res) => res.render("login"));
+router.get("/github", passport.authenticate("github"));
 
 router.post(
     "/login",
@@ -18,5 +19,13 @@ router.get("/logout", (req, res) => {
     req.logout();
     res.redirect("/auth/login");
 });
+
+router.get(
+    "/github/callback",
+    passport.authenticate("github"),
+    function (req, res) {
+        res.redirect("/reminders");
+    }
+);
 
 module.exports = router;
